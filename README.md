@@ -2,8 +2,7 @@
 
 ## Secure Branch Office Network with Cisco Packet Tracer and Python
 
-
-The project demonstrates the design, configuration, testing, troubleshooting, and automated validation of a secure small-office network using **Cisco Packet Tracer, Cisco IOS, and Python**.
+SmartBranch 360 is a branch-office networking project that demonstrates the design, configuration, testing, troubleshooting, and automated validation of a secure small-office network using **Cisco Packet Tracer, Cisco IOS, and Python**.
 
 ---
 
@@ -96,7 +95,7 @@ The project uses:
 
 ## Connectivity Requirements
 
-The completed network is designed to satisfy the following conditions:
+The completed network is designed to satisfy the following conditions.
 
 ### Employee Traffic
 
@@ -223,8 +222,8 @@ switchport trunk allowed vlan add 20
 
 Verification:
 show interfaces trunk
+```
 
-```markdown
 ---
 
 ## Technologies Used
@@ -257,3 +256,49 @@ SmartBranch360/
 ├── fault_cards/
 ├── show_outputs/
 └── reports/
+```
+
+---
+
+## How to Run the Python Tool
+
+### Requirements
+
+- Python 3.x
+- Cisco Packet Tracer
+
+### Run
+
+From the project directory:
+
+```bash
+python network_checker.py
+```
+
+On Windows:
+
+```bash
+py network_checker.py
+```
+
+The Python tool provides options for network-plan validation, Cisco show-output analysis, VLAN/IP auditing, DHCP/DNS auditing, routing, NAT/Internet, security, fault diagnosis, and validation report generation.
+
+---
+
+## Final Validation
+
+After resolving the configured fault scenarios, the final Python assurance run produced:
+
+```text
+NETWORK HEALTH SCORE: 100/100
+
+PASS:            30
+WARNING:          0
+FAIL:             0
+NOT VERIFIABLE:   0
+```
+
+The final network was verified for employee connectivity, guest isolation, Internet connectivity, secure SSH management, VLAN configuration, routing, NAT/PAT, DHCP/DNS, and the configured troubleshooting scenarios.
+
+---
+
