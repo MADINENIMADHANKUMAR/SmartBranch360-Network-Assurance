@@ -223,3 +223,37 @@ switchport trunk allowed vlan add 20
 
 Verification:
 show interfaces trunk
+
+```markdown
+---
+
+## Technologies Used
+
+- Cisco Packet Tracer
+- Cisco IOS
+- Python 3
+- YAML
+- IPv4
+- VLANs
+- 802.1Q Trunking
+- Router-on-a-Stick
+- Inter-VLAN Routing
+- DHCP
+- DNS
+- NAT/PAT
+- Access Control Lists (ACLs)
+- SSH
+
+---
+
+## Repository Structure
+
+```text
+SmartBranch360/
+├── README.md
+├── SmartBranch360.pkt
+├── smartbranch_plan.yaml
+├── network_checker.py
+├── fault_cards/
+├── show_outputs/
+└── reports/
