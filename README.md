@@ -8,7 +8,7 @@ SmartBranch 360 is a branch-office networking project that demonstrates the desi
 
 ## Project Objective
 
-The objective of SmartBranch 360 is to design and implement a functional branch office network that provides:
+The objective of SmartBranch 360 is to design and implement a functional branch-office network that provides:
 
 - Employee network connectivity
 - Guest wireless access
@@ -82,7 +82,7 @@ Guest traffic is restricted from accessing:
 - Server VLAN 30
 - Management VLAN 99
 
-Guest users are allowed to access the Internet.
+Guest users are allowed to access the simulated Internet.
 
 DNS access to the internal server is permitted according to the project requirements.
 
@@ -95,6 +95,8 @@ The project uses:
 - SSH for remote device management
 - Management VLAN access control
 - Telnet disabled for remote management
+
+Other VLANs should not be permitted to remotely manage the network devices.
 
 ---
 
@@ -115,7 +117,7 @@ Employee PCs should:
 Guest devices should:
 
 - Obtain network connectivity
-- Reach the Internet
+- Reach the simulated Internet
 - Be blocked from protected internal networks
 
 ### Management Traffic
@@ -155,11 +157,11 @@ VLAN 20 is removed from the trunk's allowed VLAN list.
 
 ### Fault 03 — Bad DHCP
 
-A DHCP relay/configuration problem is introduced.
+A DHCP relay or configuration problem is introduced.
 
 **Expected result:** Clients may fail to obtain the expected IP configuration.
 
-**Diagnosis:** DHCP-related configuration and captured command output are analyzed.
+**Diagnosis:** DHCP-related configuration and captured Cisco IOS command output are analyzed.
 
 ---
 
@@ -227,3 +229,89 @@ switchport trunk allowed vlan add 20
 
 Verification:
 show interfaces trunk
+```
+
+---
+
+## Technologies Used
+
+- Cisco Packet Tracer
+- Cisco IOS
+- Python 3
+- YAML
+- IPv4
+- VLANs
+- 802.1Q Trunking
+- Router-on-a-Stick
+- Inter-VLAN Routing
+- DHCP
+- DHCP Relay
+- DNS
+- NAT/PAT
+- Access Control Lists (ACLs)
+- SSH
+
+---
+
+## Repository Structure
+
+```text
+SmartBranch360/
+├── README.md
+├── SmartBranch360.pkt
+├── smartbranch_plan.yaml
+├── network_checker.py
+├── docs/
+│   └── network-topology.png
+├── fault_cards/
+├── show_outputs/
+└── reports/
+```
+
+---
+
+## How to Run the Python Tool
+
+### Requirements
+
+- Python 3.x
+- Cisco Packet Tracer
+
+### Run
+
+From the project directory:
+
+```bash
+python network_checker.py
+```
+
+On Windows:
+
+```bash
+py network_checker.py
+```
+
+The Python tool provides options for network-plan validation, Cisco show-output analysis, VLAN/IP auditing, DHCP/DNS auditing, routing, NAT/Internet, security, fault diagnosis, and validation report generation.
+
+---
+
+## Final Validation
+
+After resolving the configured fault scenarios, the final Python assurance run produced:
+
+```text
+NETWORK HEALTH SCORE: 100/100
+
+PASS:            30
+WARNING:          0
+FAIL:             0
+NOT VERIFIABLE:   0
+```
+
+The final network was verified for employee connectivity, guest isolation, Internet connectivity, secure SSH management, VLAN configuration, routing, NAT/PAT, DHCP/DNS, and the configured troubleshooting scenarios.
+
+---
+
+## About
+
+SmartBranch 360 is a secure branch-office network built with Cisco Packet Tracer, featuring VLAN segmentation, inter-VLAN routing, DHCP, DNS, NAT/PAT, ACL-based access control, SSH management, and a Python network assurance tool.
