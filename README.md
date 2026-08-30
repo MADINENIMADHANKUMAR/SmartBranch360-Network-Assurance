@@ -26,16 +26,20 @@ The objective of SmartBranch 360 is to design and implement a functional branch 
 ## Network Topology
 
 The SmartBranch 360 network consists of:
-<img width="1257" height="699" alt="network-topology" src="https://github.com/user-attachments/assets/f50c7ac2-87be-44fd-96ff-53ad63624d18" />
 
 - 1 branch router
+- 1 ISP router
 - 2 Cisco switches
 - 1 wireless access point
 - 1 internal server
-- 1 simulated Internet/ISP connection
+- 1 simulated Internet cloud
 - 8 endpoints
 
 The branch router uses **Router-on-a-Stick** for inter-VLAN routing.
+
+### Network Topology Diagram
+
+![SmartBranch 360 Network Topology](docs/network-topology.png)
 
 ### VLAN and IP Addressing
 
@@ -223,83 +227,3 @@ switchport trunk allowed vlan add 20
 
 Verification:
 show interfaces trunk
-```
-
----
-
-## Technologies Used
-
-- Cisco Packet Tracer
-- Cisco IOS
-- Python 3
-- YAML
-- IPv4
-- VLANs
-- 802.1Q Trunking
-- Router-on-a-Stick
-- Inter-VLAN Routing
-- DHCP
-- DNS
-- NAT/PAT
-- Access Control Lists (ACLs)
-- SSH
-
----
-
-## Repository Structure
-
-```text
-SmartBranch360/
-├── README.md
-├── SmartBranch360.pkt
-├── smartbranch_plan.yaml
-├── network_checker.py
-├── fault_cards/
-├── show_outputs/
-└── reports/
-```
-
----
-
-## How to Run the Python Tool
-
-### Requirements
-
-- Python 3.x
-- Cisco Packet Tracer
-
-### Run
-
-From the project directory:
-
-```bash
-python network_checker.py
-```
-
-On Windows:
-
-```bash
-py network_checker.py
-```
-
-The Python tool provides options for network-plan validation, Cisco show-output analysis, VLAN/IP auditing, DHCP/DNS auditing, routing, NAT/Internet, security, fault diagnosis, and validation report generation.
-
----
-
-## Final Validation
-
-After resolving the configured fault scenarios, the final Python assurance run produced:
-
-```text
-NETWORK HEALTH SCORE: 100/100
-
-PASS:            30
-WARNING:          0
-FAIL:             0
-NOT VERIFIABLE:   0
-```
-
-The final network was verified for employee connectivity, guest isolation, Internet connectivity, secure SSH management, VLAN configuration, routing, NAT/PAT, DHCP/DNS, and the configured troubleshooting scenarios.
-
----
-
