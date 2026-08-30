@@ -1,0 +1,54 @@
+# =====================================================================
+# SmartBranch 360 - Network Requirement Plan
+# =====================================================================
+# This file describes WHAT the network is supposed to look like.
+# The Python tool (network_checker.py) reads this file and compares
+# it against real Cisco "show" command output to find mistakes.
+#
+# Keep the structure (indentation) exactly as shown. The parser in
+# network_checker.py is a small custom reader built for this exact
+# layout - it is not a full YAML parser.
+# =====================================================================
+
+site:
+  name: SmartBranch 360
+
+vlans:
+  10:
+    name: Employee
+    subnet: 10.10.10.0/24
+    gateway: 10.10.10.1
+  20:
+    name: Guest
+    subnet: 10.10.20.0/24
+    gateway: 10.10.20.1
+  30:
+    name: Server
+    subnet: 10.10.30.0/24
+    gateway: 10.10.30.1
+  99:
+    name: Management
+    subnet: 10.10.99.0/24
+    gateway: 10.10.99.1
+
+server:
+  ip: 10.10.30.10
+  dns_name: server.smartbranch.local
+
+routing:
+  style: router-on-a-stick
+  wan_interface: GigabitEthernet0/0
+  trunk_interface: GigabitEthernet0/1
+
+services:
+  dhcp: true
+  dhcp_relay: true
+  dns: true
+  nat: true
+  inter_vlan_routing: true
+
+security:
+  guest_block_server: true
+  guest_block_management: true
+  ssh_management_only: true
+  telnet_disabled: true
