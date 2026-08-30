@@ -1,0 +1,116 @@
+============================================================
+SMARTBRANCH 360 - NETWORK VALIDATION REPORT
+============================================================
+Generated: 2026-08-30 12:59:22
+Plan file: D:\Cisco_Virtual_Internsip_Networking\SmartBranch360\smartbranch_plan.yaml
+Show-output file: D:\Cisco_Virtual_Internsip_Networking\SmartBranch360\show_outputs\fault04_dns_acl.txt
+
+Site: SmartBranch 360
+
+VLAN & IP AUDIT
+--------------------------------------------------
+[PASS] VLAN 10 Employee detected and active
+
+[PASS] VLAN 20 Guest detected and active
+
+[PASS] VLAN 30 Server detected and active
+
+[PASS] VLAN 99 Management detected and active
+
+[PASS] VLAN 10 Employee is allowed on the trunk
+
+[PASS] VLAN 20 Guest is allowed on the trunk
+
+[PASS] VLAN 30 Server is allowed on the trunk
+
+[PASS] VLAN 99 Management is allowed on the trunk
+
+[PASS] VLAN 10 gateway correct on GigabitEthernet0/1.10
+
+[PASS] VLAN 20 gateway correct on GigabitEthernet0/1.20
+
+[PASS] VLAN 30 gateway correct on GigabitEthernet0/1.30
+
+[PASS] VLAN 99 gateway correct on GigabitEthernet0/1.99
+
+
+ROUTING AUDIT
+--------------------------------------------------
+[PASS] Router-on-a-stick subinterfaces detected for all VLANs
+
+[PASS] Default route (0.0.0.0/0) is present
+
+
+DHCP & DNS AUDIT
+--------------------------------------------------
+[PASS] DHCP relay on VLAN 10 points to 10.10.30.10
+
+[PASS] DHCP relay on VLAN 20 points to 10.10.30.10
+
+[PASS] DHCP relay on VLAN 30 points to 10.10.30.10
+
+[PASS] DHCP relay on VLAN 99 points to 10.10.30.10
+
+[PASS] DHCP bindings observed for clients
+
+[PASS] DNS server address 10.10.30.10 appears in captured configuration/output
+
+
+NAT / INTERNET AUDIT
+--------------------------------------------------
+[PASS] PAT overload configuration detected
+
+[PASS] NAT outside configured on GigabitEthernet0/0
+
+[PASS] NAT inside configured on 4 interface(s)
+
+[PASS] NAT is actively translating (3 translations)
+
+
+SECURITY AUDIT
+--------------------------------------------------
+[PASS] Guest-to-Server isolation ACL detected
+
+[PASS] Guest-to-Management isolation ACL detected
+
+[PASS] Guest isolation ACL 100 is applied to GigabitEthernet0/1.20 (in)
+
+[FAIL] DNS traffic may be blocked by an ACL
+  Symptom:
+    Clients may be unable to resolve DNS names.
+  Evidence:
+    ACL rule affecting DNS to 10.10.30.10: 10 deny ip host 10.10.30.10 eq 53 any (0 matches)
+  Likely root cause:
+    An applied ACL may be denying DNS traffic to the server.
+  Suggested fix:
+    Review the ACL and permit DNS traffic to 10.10.30.10 on UDP/TCP port 53.
+  Verification command(s):
+    show access-lists
+  Confidence: HIGH
+
+[PASS] SSH access is restricted by ACL 99 for Management
+
+[PASS] Only SSH is allowed on vty lines
+
+
+============================================================
+NETWORK HEALTH SCORE: 88/100
+============================================================
+
+ISSUES REQUIRING ATTENTION
+--------------------------------------------------
+[FAIL] DNS traffic may be blocked by an ACL
+  Symptom:
+    Clients may be unable to resolve DNS names.
+  Evidence:
+    ACL rule affecting DNS to 10.10.30.10: 10 deny ip host 10.10.30.10 eq 53 any (0 matches)
+  Likely root cause:
+    An applied ACL may be denying DNS traffic to the server.
+  Suggested fix:
+    Review the ACL and permit DNS traffic to 10.10.30.10 on UDP/TCP port 53.
+  Verification command(s):
+    show access-lists
+  Confidence: HIGH
+
+
+Summary -> PASS: 29, WARNING: 0, FAIL: 1, NOT VERIFIABLE: 0
