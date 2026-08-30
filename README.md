@@ -26,6 +26,7 @@ The objective of SmartBranch 360 is to design and implement a functional branch 
 ## Network Topology
 
 The SmartBranch 360 network consists of:
+<img width="1257" height="699" alt="network-topology" src="https://github.com/user-attachments/assets/f50c7ac2-87be-44fd-96ff-53ad63624d18" />
 
 - 1 branch router
 - 2 Cisco switches
