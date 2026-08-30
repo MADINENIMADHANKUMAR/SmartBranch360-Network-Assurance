@@ -1,0 +1,36 @@
+=======================================================
+FAULT CARD 03 - Bad DHCP (Wrong Relay Target)
+=======================================================
+VLAN affected     : VLAN 20 (Guest)
+Injected by       : Changing "ip helper-address
+                    10.10.30.10" to "ip helper-address
+                    10.10.30.99" under
+                    GigabitEthernet0/1.20
+
+SYMPTOM
+  Guest PCs never receive an IP address automatically
+  (stuck on 169.254.x.x / APIPA, or "no IP address").
+
+ROOT CAUSE
+  DHCP requests from Guest VLAN clients are being
+  relayed to 10.10.30.99, which is not the real
+  DHCP/DNS server (10.10.30.10), so no reply ever
+  comes back.
+
+HOW THE PYTHON TOOL FINDS IT
+  Option 4 (DHCP & DNS Audit) reads the router's
+  running-config, finds the "ip helper-address" line
+  under each VLAN subinterface, and compares it to
+  server.ip in smartbranch_plan.yaml:
+      [FAIL] DHCP relay on VLAN 20 points to the
+             wrong server
+
+FIX
+  On R1:
+      interface GigabitEthernet0/1.20
+      no ip helper-address 10.10.30.99
+      ip helper-address 10.10.30.10
+
+VERIFY
+  show running-config
+  show ip dhcp binding

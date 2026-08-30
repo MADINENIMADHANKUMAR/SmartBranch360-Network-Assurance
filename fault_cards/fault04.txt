@@ -1,0 +1,35 @@
+=======================================================
+FAULT CARD 04 - ACL Blocks DNS
+=======================================================
+VLAN affected     : VLAN 10 (Employee)
+Injected by       : Applying an extended ACL (120) on
+                    Gi0/1.10 that denies traffic to
+                    host 10.10.30.10 on port 53 before
+                    a "permit ip any any" line
+
+SYMPTOM
+  Employee PCs can ping the server's IP address
+  directly, but "nslookup server.smartbranch.local" or
+  browsing by name fails - name resolution does not
+  work even though the DNS server is reachable.
+
+ROOT CAUSE
+  An access list applied to the Employee VLAN interface
+  contains a "deny" entry that specifically blocks UDP/
+  TCP port 53 (DNS) to the server's IP address.
+
+HOW THE PYTHON TOOL FINDS IT
+  Option 7 (Security Audit) scans every ACL that is
+  actually applied to an interface (via "ip
+  access-group") and looks for a "deny" line naming the
+  server's IP together with "eq 53":
+      [FAIL] DNS traffic may be blocked by an ACL
+
+FIX
+  Remove the offending "deny ... eq 53" line from ACL
+  120, or add an explicit "permit udp any host
+  10.10.30.10 eq 53" (and tcp 53) above it.
+
+VERIFY
+  show access-lists
+  nslookup server.smartbranch.local   (from a PC)

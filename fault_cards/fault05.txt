@@ -1,0 +1,38 @@
+=======================================================
+FAULT CARD 05 - NAT / Internet Problem
+=======================================================
+VLAN affected     : All VLANs (internet access only)
+Injected by       : Removing the default static route
+                    "ip route 0.0.0.0 0.0.0.0
+                    203.0.113.1"
+
+SYMPTOM
+  Internal VLANs can still reach each other and the
+  server, but no PC can reach the internet (ping 8.8.8.8
+  fails, "show ip nat statistics" shows 0 active
+  translations).
+
+ROOT CAUSE
+  PAT/NAT is configured correctly, but the router has no
+  route telling it how to reach anything outside its own
+  connected networks, so outbound packets are dropped
+  before NAT ever gets a chance to translate them.
+
+HOW THE PYTHON TOOL FINDS IT
+  Option 5 (Routing Audit) checks "show ip route" for a
+  0.0.0.0/0 entry and reports it missing. Option 6 (NAT
+  / Internet Audit) separately notices 0 NAT
+  translations and cross-references the missing default
+  route as a likely cause:
+      [FAIL] Default route missing
+      [FAIL] NAT/PAT configuration exists, but Internet
+             connectivity is not working (0 translations)
+
+FIX
+  On R1:
+      ip route 0.0.0.0 0.0.0.0 203.0.113.1
+
+VERIFY
+  show ip route
+  show ip nat statistics
+  ping 8.8.8.8

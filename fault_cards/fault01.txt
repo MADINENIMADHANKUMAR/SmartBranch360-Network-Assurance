@@ -1,0 +1,33 @@
+=======================================================
+FAULT CARD 01 - Wrong Gateway
+=======================================================
+VLAN affected     : VLAN 10 (Employee)
+Injected by       : Changing the IP address on router
+                    subinterface GigabitEthernet0/1.10
+                    from 10.10.10.1 to 10.10.10.5
+
+SYMPTOM
+  Employee PCs cannot ping the router, cannot reach the
+  server or the internet. "ipconfig" on the PC shows a
+  gateway of 10.10.10.1, but nothing responds to it.
+
+ROOT CAUSE
+  The router subinterface for VLAN 10 was reconfigured
+  (or mistyped) with the wrong IP address, so it no
+  longer matches the gateway the PCs expect.
+
+HOW THE PYTHON TOOL FINDS IT
+  Option 3 (VLAN & IP Audit) reads "show ip interface
+  brief", finds the subinterface ending in ".10", and
+  compares its IP address against the gateway listed in
+  smartbranch_plan.yaml. A mismatch is reported as:
+      [FAIL] Wrong gateway detected for VLAN 10 (Employee)
+
+FIX
+  On R1:
+      interface GigabitEthernet0/1.10
+      ip address 10.10.10.1 255.255.255.0
+
+VERIFY
+  show ip interface brief
+  ping 10.10.10.1   (from an Employee PC)

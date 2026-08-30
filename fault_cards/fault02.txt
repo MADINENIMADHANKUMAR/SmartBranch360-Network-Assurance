@@ -1,0 +1,33 @@
+=======================================================
+FAULT CARD 02 - Missing VLAN on Trunk
+=======================================================
+VLAN affected     : VLAN 20 (Guest)
+Injected by       : Removing VLAN 20 from the allowed
+                    VLAN list on the SW1 trunk port
+                    (switchport trunk allowed vlan
+                    remove 20)
+
+SYMPTOM
+  Guest PCs and the wireless AP lose all connectivity.
+  They cannot get a DHCP address and cannot reach
+  anything, even though VLAN 20 still exists on the
+  switch.
+
+ROOT CAUSE
+  Even though VLAN 20 is configured on the switch, its
+  traffic is no longer allowed to cross the trunk link
+  to the router, so it is isolated on that switch only.
+
+HOW THE PYTHON TOOL FINDS IT
+  Option 3 (VLAN & IP Audit) reads "show interfaces
+  trunk", collects every VLAN ID in the "Vlans allowed
+  on trunk" table, and checks each required VLAN from
+  the plan against that list:
+      [FAIL] VLAN 20 (Guest) missing on trunk
+
+FIX
+  On the trunk port (e.g. SW1 Fa0/1):
+      switchport trunk allowed vlan add 20
+
+VERIFY
+  show interfaces trunk
